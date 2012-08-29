@@ -1,0 +1,58 @@
+
+An Implementation of Bruce Schneier's Solitaire Encryption Algorithm
+
+Copyright (c) 2003 Eric Mulvaney <eric.mulvaney@gmail.com>
+
+
+INTRODUCTION
+
+The "Pontiflex" cryptographic system featured in Neal Stephenson's
+novel "Cryptonomicon" was actually designed by Bruce Schneier:
+
+      Bruce Schneier, "The Solitaire Encryption Algorithm",
+      <http://www.schneier.com/solitaire.html>, May 1999.
+
+The algorithm is designed for manual computation, requiring only a
+shuffled deck of cards to store the key.  This program stores the deck
+in a simple text file.  See the paper for a full description.
+
+You will need to have an OCaml compiler <http://caml.inria.fr/> to
+build this program.  Many Linux distributions package it for you.
+
+
+IMPORTANT
+
+This algorithm only works with letters.  All non-alphabetic characters
+including all white-space and punctuation will be stripped, and all
+letters will be made uppercase before encryption.
+
+Never use the same key to encrypt multiple messages.  Use the -u flag
+to update the key after each encryption (or decryption).  This will
+ensure that the same key is never used twice, and that both parties'
+keys will remain in sync.
+
+
+BASIC USAGE
+
+First you need to generate a random deck (or key):
+
+./sol -k KEY -g
+
+This creates a new random key in the file KEY.  Share this key with
+whom you want to exchange private messages.
+
+When you encode a message (-e, the default action), you can (and
+should) have the key updated (-u) before encoding the next.
+
+./sol -k KEY -u -e MESSAGE
+
+This creates MESSAGE.out with the contents of the MESSAGE file
+encrypted with KEY; it also updates KEY for the next message.
+
+If you receive a MESSAGE you know is encrypted with KEY, you can just
+as easily decrypt it using the -d action:
+
+./sol -k KEY -u -d MESSAGE
+
+This creates MESSAGE.out with the deciphered message, and updates KEY
+for the next message.
