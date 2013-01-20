@@ -119,7 +119,7 @@ let random_key () =
   let deck = new_deck () in
   for i = 0 to 52 do
     let card = deck.(i)
-    and j = i + Random.int(53-i) + 1 in
+    and j = i + Random.int(54-i) in
     deck.(i) <- deck.(j);
     deck.(j) <- card
   done; deck
